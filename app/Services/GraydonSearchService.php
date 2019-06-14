@@ -26,11 +26,13 @@ Class GraydonSearchService
         if ($config['IS_MOCK']) {
             $url = $config['MOCK_SEARCH_END_POINT'];
         }
+
         $url = $url . '?client_id=' . $config['CLIENT_ID'] . '&client_secret=' . $config['CLIENT_SECRET'];
+
         if (!empty($data)) {
             $url .= '&' . implode('&', $data);
         }
-        $data = [];
+
         $headers = [
             'searchType: ' . $config['SEARCH_TYPE'],
             'Accept: ' . $config['ACCEPT'],
