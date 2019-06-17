@@ -18,8 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('graydon', 'GraydonController@index');
+Route::get('graydon', 'GraydonController@search');
 Route::get('graydon/search', 'GraydonController@search');
-Route::post('graydon/search', 'GraydonController@searchPost');
-Route::get('graydon/company', 'GraydonController@company');
+Route::post('graydon/search', 'GraydonController@search')->name('post-search');
+Route::get('graydon/company/{id}/{type?}', 'GraydonController@companyDetail')->name('company-detail');
 Route::get('graydon/monitoring', 'GraydonController@monitoring');

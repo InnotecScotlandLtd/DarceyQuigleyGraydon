@@ -90,9 +90,6 @@
                             <a href="{{ url('graydon/search') }}"> Search</a>
                         </li>
                         <li class="dropdown-item pull-left">
-                            <a href="{{ url('graydon/company') }}"> Company</a>
-                        </li>
-                        <li class="dropdown-item pull-left">
                             <a href="{{ url('graydon/monitoring') }}"> Monitoring</a>
                         </li>
                     </ul>

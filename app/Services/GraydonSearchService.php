@@ -10,33 +10,31 @@ Class GraydonSearchService
 
     public function __construct()
     {
+        $this->config = config('constants.GRAYDON');
         $this->curlService = new CurlService();
     }
 
-    /**
-     * @param $config
-     * @param array $data
-     */
-    public function search($config = [], $data = [])
+    public function search($data = [])
     {
-        if (empty($config)) {
-            $config = config('constants.GRAYDON');
-        }
-        $url = $config['SEARCH_END_POINT'];
-        if ($config['IS_MOCK']) {
-            $url = $config['MOCK_SEARCH_END_POINT'];
+        $url = $this->config['SEARCH_END_POINT'];
+        if ($this->config['IS_MOCK']) {
+            $url = $this->config['MOCK_SEARCH_END_POINT'];
         }
 
-        $url = $url . '?client_id=' . $config['CLIENT_ID'] . '&client_secret=' . $config['CLIENT_SECRET'];
+        $url = $url . '?client_id=' . $this->config['CLIENT_ID'] . '&client_secret=' . $this->config['CLIENT_SECRET'];
 
         if (!empty($data)) {
-            $url .= '&' . implode('&', $data);
+            foreach ($data as $key => $value) {
+                $url .= '&' . $key . '=' . $value;
+            }
         }
 
+        $url = replaceVars($url);
+
         $headers = [
-            'searchType: ' . $config['SEARCH_TYPE'],
-            'Accept: ' . $config['ACCEPT'],
-            'mockRequest: ' . ($config['IS_MOCK']) ? 'true' : 'false',
+            'searchType: ' . $this->config['SEARCH_TYPE'],
+            'Accept: ' . $this->config['ACCEPT'],
+            'mockRequest: ' . ($this->config['IS_MOCK']) ? 'true' : 'false',
         ];
         $curl = $this->curlService->initiateCurl($url, $data, $headers);
         return $response = $this->curlService->executeCurl($curl);

@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\GraydonCompanyService;
+use App\Services\GraydonMonitoringService;
 use App\Services\GraydonSearchService;
 use Illuminate\Http\Request;
 
 class GraydonController extends Controller
 {
-    protected $config;
-
     protected $searchService;
+    protected $companyService;
+    protected $monitoringService;
 
     public function __construct()
     {
-        $this->config = config('constants.GRAYDON');
         $this->searchService = new GraydonSearchService();
-    }
-
-    public function connect()
-    {
-
+        $this->companyService = new GraydonCompanyService();
+        $this->monitoringService = new GraydonMonitoringService();
     }
 
     public function index()
@@ -27,33 +25,27 @@ class GraydonController extends Controller
         return view('graydon.index');
     }
 
-    public function search()
+    public function search(Request $request)
     {
-        $response = $this->searchService->search($this->config);
+        $data = $request->except('_token');
+        $response = $this->searchService->search($data);
         $response = json_decode($response);
         $count = $response->returnedHits;
         $companies = $response->companies;
         return view('graydon.search', compact('response', 'companies', 'count'));
     }
 
-    public function postSearch(Request $request)
+    public function companyDetail($id, $type = 'companyProfile')
     {
-        $data = $request->except('_token');
-        $response = $this->searchService->search($this->config, $data);
-        $response = json_decode($response);
-        $count = $response->returnedHits;
-        $companies = $response->companies;
-        $view = view('graydon.partials.search-results', compact('companies'))->render();
-        return json_encode(['html' => $view]);
-    }
-
-    public function company()
-    {
-        return view('graydon.company');
+        $company_detail = $this->companyService->get($id,$type);
+        $company_detail = json_decode($company_detail);
+        return view('graydon.company', compact('company_detail','id','type'));
     }
 
     public function monitoring()
     {
-        return view('graydon.monitoring');
+        $monitoring = $this->monitoringService->get();
+        $monitoring = json_decode($monitoring);
+        return view('graydon.monitoring',compact('monitoring'));
     }
 }
