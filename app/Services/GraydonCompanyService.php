@@ -19,31 +19,37 @@ Class GraydonCompanyService
         switch ($other_uri) {
             case 'profile':
             case 'company-profile':
+            case 'companyProfile':
                 $other_uri = 'companyProfile';
                 break;
 
             case 'branch':
             case 'branches':
+            case 'branchOffices':
                 $other_uri = 'branchOffices';
                 break;
 
             case 'credit-score':
             case 'credit-scores':
+            case 'scores/creditScores':
                 $other_uri = 'scores/creditScores';
                 break;
 
             case 'opportunity-score':
             case 'opportunity-scores':
+            case 'scores/opportunityScores':
                 $other_uri = 'scores/opportunityScores';
                 break;
 
             case "financial":
             case "financial-summary":
+            case "financials/summary":
                 $other_uri = 'financials/summary';
                 break;
 
             case "manager":
             case "managers":
+            case "affiliations/managers":
                 $other_uri = 'affiliations/managers';
                 break;
 
@@ -51,15 +57,18 @@ Class GraydonCompanyService
             case "shareholders":
             case "share-holder":
             case "share-holders":
+            case "affiliations/shareholders":
                 $other_uri = 'affiliations/shareholders';
                 break;
 
             case "participation":
             case "participations":
+            case "affiliations/participations":
                 $other_uri = 'affiliations/participations';
                 break;
 
             case "groupStructure":
+            case "affiliations/groupStructure":
                 $other_uri = 'affiliations/groupStructure';
                 break;
 
@@ -69,6 +78,7 @@ Class GraydonCompanyService
                 break;
 
             case "other":
+            case "affiliations/other":
                 $other_uri = 'affiliations/other';
                 break;
 
