@@ -45,7 +45,6 @@ class GraydonController extends Controller
     public function monitoring()
     {
         $monitoring = $this->monitoringService->get();
-        $monitoring = json_decode($monitoring);
         return view('graydon.monitoring',compact('monitoring'));
     }
 }
