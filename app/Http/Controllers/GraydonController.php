@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\GraydonCompanyService;
-use App\Services\GraydonMonitoringService;
-use App\Services\GraydonSearchService;
 use Illuminate\Http\Request;
+use InnotecScotlandLtd\Graydon\Services\GraydonCompanyService;
+use InnotecScotlandLtd\Graydon\Services\GraydonMonitoringService;
+use InnotecScotlandLtd\Graydon\Services\GraydonSearchService;
 
 class GraydonController extends Controller
 {
